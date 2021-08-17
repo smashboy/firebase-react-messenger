@@ -1,28 +1,6 @@
-export type ThemeConfig = {
-  colors: {
-    brand: string;
-    light: {
-      primary: string;
-      secondary: string;
-      additional: string;
-    };
-    dark: {
-      primary: string;
-      secondary: string;
-      additional: string;
-    };
-  };
-  typography: {
-    fontFamily: string;
-    fontWeight: {
-      normal: number;
-      medium: number;
-      bold: number;
-    };
-  };
-};
+import { Theme } from "@emotion/react";
 
-const themeConfig: ThemeConfig = {
+const themeConfig: Theme = {
   colors: {
     brand: "#00B2FF",
     light: {

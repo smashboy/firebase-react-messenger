@@ -1,10 +1,8 @@
 import { Fragment } from "react";
 /** @jsxImportSource @emotion/react */
-import { Global, css, jsx } from "@emotion/react";
-import { ThemeConfig } from "./themeConfig";
-import useTheme from "./useTheme";
+import { Global, css, jsx, useTheme, Theme } from "@emotion/react";
 
-const globalStyles = (theme: ThemeConfig) => css`
+const globalStyles = (theme: Theme) => css`
   body {
     background-color: ${theme.colors.dark.secondary};
   }
