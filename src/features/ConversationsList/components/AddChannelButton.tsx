@@ -7,7 +7,7 @@ import Typography from "../../../core/components/Typography";
 const AddChannelButton = () => {
   return (
     <div css={{ display: "flex", alignItems: "center", marginTop: "24px" }}>
-      <Button borderRadius="small" css={{ width: "21px", height: "21px", lineHeight: "10px" }}>
+      <Button size="small" css={{ width: "21px", height: "21px", lineHeight: "10px" }}>
         <AddIcon />
       </Button>
       <Typography css={{ marginLeft: "7px" }}>Add channel</Typography>

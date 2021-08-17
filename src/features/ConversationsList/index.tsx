@@ -37,11 +37,12 @@ const ConversationsList = () => {
           fontStyle="medium"
           size={22}
           color="primary"
+          css={{ marginBottom: "8px" }}
           lineHeight={30}
         >
           Conversations
         </Typography>
-        <ul css={{ listStyleType: "none", paddingLeft: 0, margin: 0, paddingTop: "24px" }}>
+        <ul css={{ listStyleType: "none", paddingLeft: 0, margin: 0 }}>
           {tempConversations.map((conversation) => (
             <ConversationItem key={conversation.id} {...conversation} />
           ))}

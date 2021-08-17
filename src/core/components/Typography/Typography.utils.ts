@@ -1,5 +1,5 @@
 import { Theme } from "@emotion/react";
-import { TypographyColor, TypographyFontWeight } from "./Typography";
+import { TypographyColor, TypographyFontWeight } from "./Typography.types";
 
 export const getFontWeight = (propKey: TypographyFontWeight, theme: Theme) => {
   switch (propKey) {
