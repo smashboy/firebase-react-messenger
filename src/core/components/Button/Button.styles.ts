@@ -15,7 +15,7 @@ export const buttonBackgroundColorStyle = (
 
 export const buttonBorderRadiusStyle = (size: ButtonSize) =>
   css`
-    ${size === "medium" ? "border-radius: 9px" : "border-radius: 0"}
+    ${size === "medium" ? "border-radius: 9px" : "border-radius: 3px"}
   `;
 
 export const buttonPaddingStyle = (size: ButtonSize) =>
