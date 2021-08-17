@@ -24,7 +24,12 @@ const tempConversations: Conversation[] = [
 const ConversationsList = () => {
   return (
     <div
-      css={{ maxWidth: "300px", height: "100%", display: "grid", gridTemplateColumns: "1fr 5px" }}
+      css={{
+        width: "100%",
+        height: "100%",
+        display: "grid",
+        gridTemplateColumns: "300px 5px",
+      }}
     >
       <div css={{ padding: "24px 24px 0 24px" }}>
         <Typography

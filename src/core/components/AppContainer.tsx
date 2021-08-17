@@ -6,6 +6,8 @@ const AppContainer: React.FC = ({ children }) => {
     <div
       css={{
         height: "100vh",
+        display: "grid",
+        gridTemplateColumns: "300px 1fr",
       }}
     >
       {children}

@@ -24,7 +24,7 @@ const Button: React.FC<ButtonProps> = ({
   return (
     <button
       css={(theme) => ({
-        backgroundColor: variant === "contained" ? getColor(color, theme) : undefined,
+        backgroundColor: variant === "contained" ? getColor(color, theme) : "transparent",
         borderRadius: borderRadius === "medium" ? "9px" : "3px",
         padding: 0,
         border: "none",
