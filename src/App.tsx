@@ -1,5 +1,12 @@
+import AppContainer from "./core/components/AppContainer";
+import ConversationsList from "./features/ConversationsList";
+
 function App() {
-  return <div></div>;
+  return (
+    <AppContainer>
+      <ConversationsList />
+    </AppContainer>
+  );
 }
 
 export default App;

@@ -18,6 +18,7 @@ declare module "@emotion/react" {
     typography: {
       fontFamily: string;
       fontWeight: {
+        light: number;
         normal: number;
         medium: number;
         bold: number;

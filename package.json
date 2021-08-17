@@ -33,19 +33,6 @@
     ],
     "plugins": [
       "@emotion"
-    ],
-    "rules": {
-      "@emotion/jsx-import": "error"
-    },
-    "overrides": [
-      {
-        "files": [
-          "**/*.ts?(x)"
-        ],
-        "rules": {
-          "@emotion/jsx-import": "warn"
-        }
-      }
     ]
   },
   "browserslist": {

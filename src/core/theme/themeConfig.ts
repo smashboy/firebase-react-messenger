@@ -17,6 +17,7 @@ const themeConfig: Theme = {
   typography: {
     fontFamily: "Noto Sans",
     fontWeight: {
+      light: 300,
       normal: 400,
       medium: 500,
       bold: 700,
