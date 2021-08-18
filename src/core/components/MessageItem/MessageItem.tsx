@@ -1,23 +1,27 @@
 /** @jsxImportSource @emotion/react */
 import { jsx } from "@emotion/react";
 import { useMemo } from "react";
-import { Message } from "../../firebase/models";
 import Avatar from "../Avatar";
+import Button from "../Button";
 import Typography from "../Typography";
 import {
-  messageActionAreaStyle,
   messageContainerStyle,
+  messageContainerVariant,
   messageHeaderStyle,
   repliesContainerStyle,
 } from "./MessageItem.styles";
+import { MessageItemProps } from "./MessageItem.types";
 
-const MessageItem: React.FC<Message> = ({ avatarUrl, username, date, message, repliesFrom }) => {
+const MessageItem: React.FC<MessageItemProps> = ({
+  variant = "conversation",
+  message: { avatarUrl, username, date, message, repliesFrom },
+}) => {
   const repliesCounter = useMemo(() => repliesFrom?.length || 0, [repliesFrom]);
 
   return (
-    <div css={messageContainerStyle}>
+    <div css={[messageContainerStyle, messageContainerVariant(variant)]}>
       <Avatar src={avatarUrl} alt={username} css={{ marginTop: "3px" }} />
-      <div css={messageActionAreaStyle}>
+      <div>
         <div css={messageHeaderStyle}>
           <Typography color="primary" fontStyle="bold">
             {username}
@@ -34,7 +38,7 @@ const MessageItem: React.FC<Message> = ({ avatarUrl, username, date, message, re
         <Typography lineHeight={21} css={{ marginTop: "4px" }}>
           {message}
         </Typography>
-        {repliesCounter > 0 && (
+        {repliesCounter > 0 && variant === "conversation" && (
           <div css={repliesContainerStyle}>
             {repliesFrom!.map((reply) => (
               <Avatar
@@ -45,9 +49,11 @@ const MessageItem: React.FC<Message> = ({ avatarUrl, username, date, message, re
                 css={{ marginRight: "8px" }}
               />
             ))}
-            <Typography color="brand" size={14}>{`${repliesCounter} ${
-              repliesCounter > 1 ? "replies" : "reply"
-            }`}</Typography>
+            <Button variant="text" size="small">
+              <Typography color="brand" size={14}>{`${repliesCounter} ${
+                repliesCounter > 1 ? "replies" : "reply"
+              }`}</Typography>
+            </Button>
           </div>
         )}
       </div>

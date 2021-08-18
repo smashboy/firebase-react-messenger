@@ -14,7 +14,6 @@ export const tempMessages: Message[] = [
     avatarUrl:
       "https://www.kindpng.com/picc/m/22-223941_transparent-avatar-png-male-avatar-icon-transparent-png.png",
     date: new Date(),
-    repliesFrom: ["Elijah Atamas"],
     message: "А нужно ли вообще синхронизировать отгрузку на десктопе и онбоардинг на телефоне?",
   },
   {
@@ -23,11 +22,10 @@ export const tempMessages: Message[] = [
     avatarUrl:
       "https://www.kindpng.com/picc/m/22-223941_transparent-avatar-png-male-avatar-icon-transparent-png.png",
     date: new Date(),
-    repliesFrom: ["Slava Yefremov", "Elijah Atamas"],
     message:
       "Тут подумал, что если мы будем брать имейл юзера и делать из него юзернейм путем обрезания адреса его эл. почты, то мы не сможем сделать так для юзеров, которые вошли через фейсбук, где у них нет почты, а только телефон есть. Как вариант, в таком случае можно фейсбуковский юзернейм брать и его устанавливать как юзернейм ридма на этом этапе",
   },
-].reverse();
+];
 
 const MessagesList = () => {
   const Components: Components = useMemo(
@@ -47,8 +45,9 @@ const MessagesList = () => {
       <Virtuoso
         data={tempMessages}
         components={Components}
-        style={{ transform: "rotate(180deg) scaleX(-1)" }}
-        itemContent={(_, message) => <MessageItem key={message.id} message={message} />}
+        itemContent={(_, message) => (
+          <MessageItem key={message.id} message={message} variant="thread" />
+        )}
       />
     </div>
   );

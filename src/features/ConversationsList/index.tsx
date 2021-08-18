@@ -37,7 +37,7 @@ const ConversationsList = () => {
           fontStyle="medium"
           size={22}
           color="primary"
-          css={{ marginBottom: "8px" }}
+          css={{ paddingBottom: "8px" }}
           lineHeight={30}
         >
           Conversations

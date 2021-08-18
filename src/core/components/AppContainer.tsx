@@ -7,7 +7,7 @@ const AppContainer: React.FC = ({ children }) => {
       css={{
         height: "100vh",
         display: "grid",
-        gridTemplateColumns: "300px 1fr",
+        gridTemplateColumns: "300px auto 405px",
       }}
     >
       {children}
