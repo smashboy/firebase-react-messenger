@@ -1,2 +1,2 @@
-export const CONVERSATION_COLLECTION = "conversations-collection";
-export const MESSAGES_COLLECTION = "messages-collection";
+export const CONVERSATION_COLLECTION = "conversations";
+export const MESSAGES_COLLECTION = "messages";
