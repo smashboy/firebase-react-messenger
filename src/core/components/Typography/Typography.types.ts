@@ -1,8 +1,8 @@
 import { CssProps } from "../../types";
 
 export type TypographyFontWeight = "light" | "normal" | "medium" | "bold";
-export type TypographyColor = "primary" | "secondary" | "additional";
-export type TypographyFontStyle = "regular" | "medium";
+export type TypographyColor = "brand" | "primary" | "secondary" | "additional";
+export type TypographyFontStyle = "regular" | "medium" | "bold" | "light";
 
 export type TypographyProps = {
   component?: keyof JSX.IntrinsicElements;

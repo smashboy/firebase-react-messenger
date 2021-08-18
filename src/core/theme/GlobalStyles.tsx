@@ -15,6 +15,14 @@ const globalStyles = (theme: Theme) => css`
     font-family: "Noto Sans Medium";
     src: local("Noto Sans Medium"), url("./fonts/NotoSans-Medium.ttf") format("truetype");
   }
+  @font-face {
+    font-family: "Noto Sans Bold";
+    src: local("Noto Sans Bold"), url("./fonts/NotoSans-Bold.ttf") format("truetype");
+  }
+  @font-face {
+    font-family: "Noto Sans Light";
+    src: local("Noto Sans Light"), url("./fonts/NotoSans-Light.ttf") format("truetype");
+  }
 `;
 
 const GlobalStyles: React.FC = ({ children }) => {

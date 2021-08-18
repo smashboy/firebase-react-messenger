@@ -23,12 +23,14 @@ const Typography: React.FC<TypographyProps> = ({
 }) => {
   return (
     <Component
+      // @ts-ignore
       css={(theme) => [
         typographyFontFamilyStyle(fontStyle, theme),
         typographyFontSizeStyle(size),
         typographyFontWeightStyle(fontWeight, theme),
         typographyColorStyle(color, theme),
         typographyLineHeight(lineHeight),
+        getCssProps(theme, css),
       ]}
       {...otherProps}
     >

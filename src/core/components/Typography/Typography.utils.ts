@@ -20,6 +20,8 @@ export const getColor = (propKey: TypographyColor, theme: Theme) => {
       return theme.colors.light.primary;
     case "secondary":
       return theme.colors.light.secondary;
+    case "brand":
+      return theme.colors.brand;
     default:
       return theme.colors.light.additional;
   }
