@@ -15,3 +15,11 @@ export interface NewMessage {
 export interface Message extends NewMessage {
   id: string;
 }
+
+export interface NewConversation {
+  name: string;
+}
+
+export interface Conversation extends NewConversation {
+  id: string;
+}

@@ -1,56 +1,47 @@
 /** @jsxImportSource @emotion/react */
 import { jsx } from "@emotion/react";
+import { useSelector } from "react-redux";
 import Divider from "../../core/components/Divider";
 import Typography from "../../core/components/Typography";
-import { Conversation } from "../../core/firebase/models";
+import { RootState } from "../../core/store/store";
 import AddChannelButton from "./components/AddChannelButton";
 import ConversationItem from "./components/ConversationItem";
-
-const tempConversations: Conversation[] = [
-  {
-    id: "1",
-    name: "general",
-  },
-  {
-    id: "2",
-    name: "engineering",
-  },
-  {
-    id: "3",
-    name: "random",
-  },
-];
+import ConversationsListeners from "./store/ConversationsListeners";
 
 const ConversationsList = () => {
+  const conversations = useSelector((state: RootState) => state.conversations.conversations);
+
   return (
-    <div
-      css={{
-        width: "100%",
-        height: "100%",
-        display: "grid",
-        gridTemplateColumns: "300px 5px",
-      }}
-    >
-      <div css={{ padding: "24px 24px 0 24px" }}>
-        <Typography
-          fontWeight="medium"
-          fontStyle="medium"
-          size={22}
-          color="primary"
-          css={{ paddingBottom: "8px" }}
-          lineHeight={30}
-        >
-          Conversations
-        </Typography>
-        <ul css={{ listStyleType: "none", paddingLeft: 0, margin: 0 }}>
-          {tempConversations.map((conversation) => (
-            <ConversationItem key={conversation.id} {...conversation} />
-          ))}
-        </ul>
-        <AddChannelButton />
+    <ConversationsListeners>
+      <div
+        css={{
+          width: "100%",
+          height: "100%",
+          display: "grid",
+          gridTemplateColumns: "300px 5px",
+        }}
+      >
+        <div css={{ padding: "24px 24px 0 24px" }}>
+          <Typography
+            fontWeight="medium"
+            fontStyle="medium"
+            size={22}
+            color="primary"
+            css={{ paddingBottom: "8px" }}
+            lineHeight={30}
+          >
+            Conversations
+          </Typography>
+          <ul css={{ listStyleType: "none", paddingLeft: 0, margin: 0 }}>
+            {conversations?.map((conversation) => (
+              <ConversationItem key={conversation.id} {...conversation} />
+            ))}
+          </ul>
+          <AddChannelButton />
+        </div>
+        <Divider orientation="vertical" />
       </div>
-      <Divider orientation="vertical" />
-    </div>
+    </ConversationsListeners>
   );
 };
 

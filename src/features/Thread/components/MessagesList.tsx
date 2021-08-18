@@ -41,7 +41,7 @@ const MessagesList = () => {
   );
 
   return (
-    <div css={{ height: "calc(100% - 161px)", padding: "16px 16px 0 16px" }}>
+    <div css={{ height: "calc(100% - 95px)", padding: "16px 16px 0 16px" }}>
       <Virtuoso
         data={tempMessages}
         components={Components}
