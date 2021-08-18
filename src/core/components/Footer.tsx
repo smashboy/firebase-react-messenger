@@ -26,7 +26,7 @@ const Footer = () => {
           color={newMessage ? "brand" : "default"}
           css={{ marginLeft: "16px", lineHeight: 0 }}
         >
-          <SendIcon />
+          <SendIcon color={newMessage ? "primary" : "additional"} />
         </Button>
       </div>
     </div>

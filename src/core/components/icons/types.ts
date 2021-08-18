@@ -1,4 +1,4 @@
-export type IconColor = "primary" | "secondary";
+export type IconColor = "primary" | "secondary" | "additional";
 
 export type IconProps = {
   size?: number;
