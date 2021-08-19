@@ -1,6 +1,3 @@
-/** @jsxImportSource @emotion/react */
-import { jsx } from "@emotion/react";
-
 export type DividerProps = {
   orientation?: "horizontal" | "vertical";
 };

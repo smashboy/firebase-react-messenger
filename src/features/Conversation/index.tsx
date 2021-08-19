@@ -1,5 +1,3 @@
-/** @jsxImportSource @emotion/react */
-import { jsx } from "@emotion/react";
 import { useRef } from "react";
 import { Fragment } from "react";
 import { useDispatch, useSelector } from "react-redux";

@@ -1,5 +1,3 @@
-/** @jsxImportSource @emotion/react */
-import { jsx } from "@emotion/react";
 import { useDispatch } from "react-redux";
 import Button from "../../../core/components/Button";
 import AddIcon from "../../../core/components/icons/AddIcon";

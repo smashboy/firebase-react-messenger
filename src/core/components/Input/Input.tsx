@@ -1,5 +1,3 @@
-/** @jsxImportSource @emotion/react */
-import { jsx } from "@emotion/react";
 import { inputStaticStyles, inputWidthStyle } from "./Input.styles";
 import { InputProps } from "./Input.types";
 

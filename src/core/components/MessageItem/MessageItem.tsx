@@ -1,5 +1,3 @@
-/** @jsxImportSource @emotion/react */
-import { jsx } from "@emotion/react";
 import { useMemo } from "react";
 import { useDispatch } from "react-redux";
 import { resetThread, setMessage } from "../../../features/Thread/store/threadSlice";

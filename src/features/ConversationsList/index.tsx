@@ -1,5 +1,3 @@
-/** @jsxImportSource @emotion/react */
-import { jsx } from "@emotion/react";
 import { useSelector } from "react-redux";
 import Divider from "../../core/components/Divider";
 import Typography from "../../core/components/Typography";

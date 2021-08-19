@@ -1,5 +1,3 @@
-/** @jsxImportSource @emotion/react */
-import { jsx } from "@emotion/react";
 import { useDispatch, useSelector } from "react-redux";
 import HashIcon from "../../../core/components/icons/HashIcon";
 import Typography from "../../../core/components/Typography";

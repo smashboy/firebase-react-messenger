@@ -1,6 +1,5 @@
 import { Fragment } from "react";
-/** @jsxImportSource @emotion/react */
-import { Global, css, jsx, useTheme, Theme } from "@emotion/react";
+import { Global, css, useTheme, Theme } from "@emotion/react";
 
 const globalStyles = (theme: Theme) => css`
   body {

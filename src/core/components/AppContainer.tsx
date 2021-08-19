@@ -1,5 +1,4 @@
-/** @jsxImportSource @emotion/react */
-import { jsx, css } from "@emotion/react";
+import { css } from "@emotion/react";
 import { useSelector } from "react-redux";
 import { RootState } from "../store";
 

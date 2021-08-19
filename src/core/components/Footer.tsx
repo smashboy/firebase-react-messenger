@@ -1,5 +1,3 @@
-/** @jsxImportSource @emotion/react */
-import { jsx } from "@emotion/react";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { NewMessage } from "../firebase/models";

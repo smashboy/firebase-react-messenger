@@ -1,5 +1,3 @@
-/** @jsxImportSource @emotion/react */
-import { jsx } from "@emotion/react";
 import Divider from "./Divider";
 
 const Header: React.FC = ({ children }) => {

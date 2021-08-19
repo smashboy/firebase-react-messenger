@@ -1,5 +1,3 @@
-/** @jsxImportSource @emotion/react */
-import { jsx } from "@emotion/react";
 import { getCssProps } from "../../utils";
 import {
   buttonBackgroundColorStyle,
