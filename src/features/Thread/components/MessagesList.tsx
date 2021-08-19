@@ -11,19 +11,19 @@ export const tempMessages: Message[] = [
   {
     id: "0",
     username: "Elijah Atamas",
-    avatarUrl:
-      "https://www.kindpng.com/picc/m/22-223941_transparent-avatar-png-male-avatar-icon-transparent-png.png",
-    date: new Date(),
+    date: new Date().toString(),
     message: "А нужно ли вообще синхронизировать отгрузку на десктопе и онбоардинг на телефоне?",
+    replyTo: null,
+    repliesFrom: [],
   },
   {
     id: "1",
     username: "Slava Yefremov",
-    avatarUrl:
-      "https://www.kindpng.com/picc/m/22-223941_transparent-avatar-png-male-avatar-icon-transparent-png.png",
-    date: new Date(),
+    date: new Date().toString(),
     message:
       "Тут подумал, что если мы будем брать имейл юзера и делать из него юзернейм путем обрезания адреса его эл. почты, то мы не сможем сделать так для юзеров, которые вошли через фейсбук, где у них нет почты, а только телефон есть. Как вариант, в таком случае можно фейсбуковский юзернейм брать и его устанавливать как юзернейм ридма на этом этапе",
+    replyTo: null,
+    repliesFrom: [],
   },
 ];
 

@@ -1,6 +1,8 @@
 /** @jsxImportSource @emotion/react */
 import { jsx } from "@emotion/react";
 import { useState } from "react";
+import { NewMessage } from "../firebase/models";
+import useSession from "../store/sessionStore/useSession";
 import Button from "./Button";
 import Divider from "./Divider";
 import SendIcon from "./icons/SendIcon";
@@ -8,38 +10,53 @@ import Input from "./Input";
 
 export type FooterProps = {
   channelName?: string;
-  onMessageSend?: (message: string) => void;
+  onMessageSend?: (message: NewMessage) => void;
 };
 
 const Footer: React.FC<FooterProps> = ({ channelName, onMessageSend }) => {
-  const [newMessage, setNewMessage] = useState("");
+  const [username, { login }] = useSession();
+
+  const [messageContent, setMessageContent] = useState("");
 
   const handleNewMessage = (event: React.ChangeEvent<HTMLInputElement>) =>
-    setNewMessage(event.currentTarget.value);
+    setMessageContent(event.currentTarget.value);
 
-  const handleSendMessage = () => {
-    if (!newMessage) return;
+  const handleSendMessage = (event: React.FormEvent<HTMLFormElement>) => {
+    event.preventDefault();
+
+    if (!messageContent) return;
+    if (!username) return login();
+
+    const newMessage: NewMessage = {
+      username,
+      date: new Date().toString(),
+      message: messageContent,
+      repliesFrom: [],
+      replyTo: null,
+    };
+
     onMessageSend?.(newMessage);
+    setMessageContent("");
   };
 
   return (
     <div css={{ width: "100%", position: "absolute", bottom: 0, left: 0 }}>
       <Divider />
-      <div css={{ display: "flex", padding: "16px" }}>
+      <form onSubmit={handleSendMessage} css={{ display: "flex", padding: "16px" }}>
         <Input
-          value={newMessage}
+          value={messageContent}
           onChange={handleNewMessage}
           placeholder={channelName ? `Message #${channelName}` : "Reply..."}
           fullWidth
         />
         <Button
-          color={newMessage ? "brand" : "default"}
+          color={messageContent ? "brand" : "default"}
           css={{ marginLeft: "16px", lineHeight: 0 }}
-          onClick={handleSendMessage}
+          type="submit"
         >
-          <SendIcon color={newMessage ? "primary" : "additional"} />
+          <SendIcon color={messageContent ? "primary" : "additional"} />
         </Button>
-      </div>
+      </form>
     </div>
   );
 };

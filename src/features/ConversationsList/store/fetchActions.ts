@@ -27,15 +27,7 @@ export const createNewConversation = createAsyncThunk(
       name,
     };
 
-    const conversationRef = await firestore
-      .collection(CONVERSATION_COLLECTION)
-      .add(newConversatoin);
-
-    const conversationSnapshot = await conversationRef.get();
-
-    const conversation = conversationSnapshot.data() as Conversation;
-
-    return conversation;
+    await firestore.collection(CONVERSATION_COLLECTION).add(newConversatoin);
   }
 );
 

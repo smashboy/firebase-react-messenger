@@ -23,9 +23,12 @@ export const messageHeaderStyle = css`
   align-items: center;
 `;
 
-// export const messageActionAreaStyle = css`
-//   cursor: pointer;
-// `;
+export const messageActionAreaStyle = (variant: MessageItemVariant) =>
+  variant === "conversation"
+    ? css`
+        cursor: pointer;
+      `
+    : undefined;
 
 export const repliesContainerStyle = css`
   display: flex;

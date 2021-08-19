@@ -5,11 +5,10 @@ export interface Conversation {
 
 export interface NewMessage {
   username: string;
-  avatarUrl: string;
-  date: Date;
+  date: string;
   message: string;
-  repliesFrom?: string[];
-  replyTo?: string;
+  repliesFrom: string[];
+  replyTo: string | null;
 }
 
 export interface Message extends NewMessage {

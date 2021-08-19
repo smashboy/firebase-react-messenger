@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Conversation } from "../../../core/firebase/models";
-import { createNewConversation, fetchConversations } from "./fetchActions";
+import { fetchConversations } from "./fetchActions";
 
 export type ConversationsState = {
   conversations: Conversation[] | null;
@@ -39,8 +39,7 @@ const conversationsSlice = createSlice({
       })
       .addCase(fetchConversations.rejected, (state) => {
         state.isLoading = false;
-      })
-      .addCase(createNewConversation.fulfilled, () => {});
+      });
   },
 });
 
