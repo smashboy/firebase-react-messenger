@@ -7,7 +7,7 @@ import { Virtuoso, Components } from "react-virtuoso";
 import MessageItem from "../../../core/components/MessageItem";
 import VirtualItemWrapper from "../../../core/components/VirtualItemWrapper";
 import { Message } from "../../../core/firebase/models";
-import { RootState } from "../../../core/store/store";
+import { RootState } from "../../../core/store";
 import ConversationListeners from "../store/ConversationListeners";
 import { fetchMessages } from "../store/fetchActions";
 

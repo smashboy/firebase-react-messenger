@@ -4,7 +4,7 @@ import { Fragment } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import Footer from "../../core/components/Footer";
 import { NewMessage } from "../../core/firebase/models";
-import { RootState } from "../../core/store/store";
+import { RootState } from "../../core/store";
 import Header from "./components/Header";
 import MessagesList from "./components/MessagesList";
 import { createNewMessage } from "./store/fetchActions";

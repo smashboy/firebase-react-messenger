@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { CONVERSATION_COLLECTION, MESSAGES_COLLECTION } from "../../../core/firebase/collections";
 import { firestore } from "../../../core/firebase/initializeFirebase";
 import { Message, NewMessage } from "../../../core/firebase/models";
-import { RootState } from "../../../core/store/store";
+import { RootState } from "../../../core/store";
 import { addNewMessage } from "./conversationSlice";
 import { fetchMessages } from "./fetchActions";
 

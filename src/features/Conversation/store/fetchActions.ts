@@ -2,7 +2,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import { MESSAGES_COLLECTION, CONVERSATION_COLLECTION } from "../../../core/firebase/collections";
 import { firestore } from "../../../core/firebase/initializeFirebase";
 import { NewMessage, Message } from "../../../core/firebase/models";
-import { RootState } from "../../../core/store/store";
+import { RootState } from "../../../core/store";
 import { MESSAGES_PAGINATION_LIMIT } from "./conversationSlice";
 import { QuerySnapshot, DocumentData } from "@firebase/firestore-types";
 

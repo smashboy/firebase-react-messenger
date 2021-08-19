@@ -6,7 +6,7 @@ import Header from "../../../core/components/Header";
 import HashIcon from "../../../core/components/icons/HashIcon";
 import TrashIcon from "../../../core/components/icons/TrashIcon";
 import Typography from "../../../core/components/Typography";
-import { RootState } from "../../../core/store/store";
+import { RootState } from "../../../core/store";
 
 const ConversationHeader = () => {
   const name = useSelector((state: RootState) => state.conversation.info!.name);

@@ -3,7 +3,7 @@ import { jsx } from "@emotion/react";
 import { useSelector } from "react-redux";
 import Divider from "../../core/components/Divider";
 import Typography from "../../core/components/Typography";
-import { RootState } from "../../core/store/store";
+import { RootState } from "../../core/store";
 import AddChannelButton from "./components/AddChannelButton";
 import ConversationItem from "./components/ConversationItem";
 import ConversationsListeners from "./store/ConversationsListeners";

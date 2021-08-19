@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import HashIcon from "../../../core/components/icons/HashIcon";
 import Typography from "../../../core/components/Typography";
 import { Conversation } from "../../../core/firebase/models";
-import { RootState } from "../../../core/store/store";
+import { RootState } from "../../../core/store";
 import { resetConversation, setInfo } from "../../Conversation/store/conversationSlice";
 
 const ConversationItem: React.FC<Conversation> = ({ name, id }) => {

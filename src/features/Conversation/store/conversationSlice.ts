@@ -29,8 +29,10 @@ const conversationSlice = createSlice({
     addNewMessage: (state, action: PayloadAction<Message>) => {
       if (state.messages) {
         state.messages.unshift(action.payload);
+        state.cursor = state.messages[state.messages.length - 1]?.id || null;
         return;
       }
+
       state.messages = [action.payload];
       state.cursor = state.messages[state.messages.length - 1]?.id || null;
     },
