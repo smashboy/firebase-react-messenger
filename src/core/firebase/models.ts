@@ -8,6 +8,7 @@ export interface NewMessage {
   date: string;
   message: string;
   repliesFrom: string[];
+  repliesCounter: number;
   replyTo: string | null;
 }
 

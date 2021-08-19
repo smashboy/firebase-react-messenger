@@ -6,6 +6,7 @@ import Typography from "../../../core/components/Typography";
 import { Conversation } from "../../../core/firebase/models";
 import { RootState } from "../../../core/store";
 import { resetConversation, setInfo } from "../../Conversation/store/conversationSlice";
+import { resetThread } from "../../Thread/store/threadSlice";
 
 const ConversationItem: React.FC<Conversation> = ({ name, id }) => {
   const selectedConversationId = useSelector((state: RootState) => state.conversation.info?.id);
@@ -13,7 +14,7 @@ const ConversationItem: React.FC<Conversation> = ({ name, id }) => {
 
   const handleOpenConversation = () => {
     if (selectedConversationId === id) return;
-
+    dispatch(resetThread());
     dispatch(resetConversation());
     dispatch(setInfo({ name, id }));
   };

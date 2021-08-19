@@ -1,6 +1,8 @@
 /** @jsxImportSource @emotion/react */
 import { jsx } from "@emotion/react";
 import { useMemo } from "react";
+import { useDispatch } from "react-redux";
+import { resetThread, setMessage } from "../../../features/Thread/store/threadSlice";
 import Avatar from "../Avatar";
 import Typography from "../Typography";
 import {
@@ -12,11 +14,19 @@ import {
 } from "./MessageItem.styles";
 import { MessageItemProps } from "./MessageItem.types";
 
-const MessageItem: React.FC<MessageItemProps> = ({
-  variant = "conversation",
-  message: { username, date, message, repliesFrom },
-}) => {
-  const repliesCounter = useMemo(() => repliesFrom?.length || 0, [repliesFrom]);
+const MessageItem: React.FC<MessageItemProps> = ({ variant = "conversation", message }) => {
+  const { username, date, message: messageContent, repliesFrom, repliesCounter } = message;
+
+  const dispatch = useDispatch();
+
+  const repliesFromCounter = useMemo(() => repliesFrom?.length || 0, [repliesFrom]);
+
+  const handleOpenThread = () => {
+    if (variant === "conversation") {
+      dispatch(resetThread());
+      dispatch(setMessage(message));
+    }
+  };
 
   return (
     <div css={[messageContainerStyle, messageContainerVariant(variant)]}>
@@ -25,7 +35,7 @@ const MessageItem: React.FC<MessageItemProps> = ({
         alt={username}
         css={{ marginTop: "3px" }}
       />
-      <div css={messageActionAreaStyle(variant)}>
+      <div onClick={handleOpenThread} css={messageActionAreaStyle(variant)}>
         <div css={messageHeaderStyle}>
           <Typography color="primary" fontStyle="bold">
             {username}
@@ -39,10 +49,10 @@ const MessageItem: React.FC<MessageItemProps> = ({
             {new Date(Date.parse(date)).toLocaleTimeString("en-US").replace(/(.*)\D\d+/, "$1")}
           </Typography>
         </div>
-        <Typography lineHeight={21} css={{ marginTop: "4px" }}>
-          {message}
+        <Typography lineHeight={21} css={{ marginTop: "4px", wordBreak: "break-word" }}>
+          {messageContent}
         </Typography>
-        {repliesCounter > 0 && variant === "conversation" && (
+        {repliesFromCounter > 0 && variant === "conversation" && (
           <div css={repliesContainerStyle}>
             {repliesFrom!.map((reply) => (
               <Avatar

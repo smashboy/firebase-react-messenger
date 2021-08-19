@@ -1,15 +1,27 @@
 /** @jsxImportSource @emotion/react */
 import { jsx } from "@emotion/react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import Button from "../../../core/components/Button";
 import Header from "../../../core/components/Header";
 import HashIcon from "../../../core/components/icons/HashIcon";
 import TrashIcon from "../../../core/components/icons/TrashIcon";
 import Typography from "../../../core/components/Typography";
 import { RootState } from "../../../core/store";
+import { removeConversation } from "../../ConversationsList/store/conversationsSlice";
+import { resetThread } from "../../Thread/store/threadSlice";
+import { resetConversation } from "../store/conversationSlice";
+import { deleteConversation } from "../store/fetchActions";
 
 const ConversationHeader = () => {
-  const name = useSelector((state: RootState) => state.conversation.info!.name);
+  const { name, id } = useSelector((state: RootState) => state.conversation.info!);
+  const dispatch = useDispatch();
+
+  const handleDeleteConversation = async () => {
+    await dispatch(deleteConversation(id));
+    dispatch(resetThread());
+    dispatch(resetConversation());
+    dispatch(removeConversation(id));
+  };
 
   return (
     <Header>
@@ -19,7 +31,7 @@ const ConversationHeader = () => {
           {name}
         </Typography>
       </div>
-      <Button variant="text">
+      <Button onClick={handleDeleteConversation} variant="text">
         <TrashIcon />
       </Button>
     </Header>

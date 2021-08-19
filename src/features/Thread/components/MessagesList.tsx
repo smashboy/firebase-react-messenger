@@ -2,32 +2,18 @@
 import { jsx } from "@emotion/react";
 import { forwardRef } from "react";
 import { useMemo } from "react";
-import { Virtuoso, Components } from "react-virtuoso";
+import { Virtuoso, Components, VirtuosoHandle } from "react-virtuoso";
 import MessageItem from "../../../core/components/MessageItem";
-import { Message } from "../../../core/firebase/models";
 import VirtualItemWrapper from "../../../core/components/VirtualItemWrapper";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../../../core/store";
+import ThreadListeners from "../store/ThreadListeners";
+import { fetchReplies } from "../store/fetchActions";
 
-export const tempMessages: Message[] = [
-  {
-    id: "0",
-    username: "Elijah Atamas",
-    date: new Date().toString(),
-    message: "А нужно ли вообще синхронизировать отгрузку на десктопе и онбоардинг на телефоне?",
-    replyTo: null,
-    repliesFrom: [],
-  },
-  {
-    id: "1",
-    username: "Slava Yefremov",
-    date: new Date().toString(),
-    message:
-      "Тут подумал, что если мы будем брать имейл юзера и делать из него юзернейм путем обрезания адреса его эл. почты, то мы не сможем сделать так для юзеров, которые вошли через фейсбук, где у них нет почты, а только телефон есть. Как вариант, в таком случае можно фейсбуковский юзернейм брать и его устанавливать как юзернейм ридма на этом этапе",
-    replyTo: null,
-    repliesFrom: [],
-  },
-];
+const MessagesList = forwardRef<VirtuosoHandle>((_, ref) => {
+  const replies = useSelector((state: RootState) => state.thread.replies);
+  const dispatch = useDispatch();
 
-const MessagesList = () => {
   const Components: Components = useMemo(
     () => ({
       List: forwardRef(({ style, children }, listRef) => (
@@ -40,17 +26,25 @@ const MessagesList = () => {
     []
   );
 
+  const handleFetchMoreMessages = () => dispatch(fetchReplies());
+
   return (
     <div css={{ height: "calc(100% - 95px)", padding: "16px 16px 0 16px" }}>
-      <Virtuoso
-        data={tempMessages}
-        components={Components}
-        itemContent={(_, message) => (
-          <MessageItem key={message.id} message={message} variant="thread" />
+      <ThreadListeners>
+        {replies && (
+          <Virtuoso
+            ref={ref}
+            data={replies}
+            components={Components}
+            endReached={handleFetchMoreMessages}
+            itemContent={(_, message) => (
+              <MessageItem key={message.id} message={message} variant="thread" />
+            )}
+          />
         )}
-      />
+      </ThreadListeners>
     </div>
   );
-};
+});
 
 export default MessagesList;

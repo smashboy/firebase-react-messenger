@@ -5,6 +5,7 @@ import { NewMessage, Message } from "../../../core/firebase/models";
 import { RootState } from "../../../core/store";
 import { MESSAGES_PAGINATION_LIMIT } from "./conversationSlice";
 import { QuerySnapshot, DocumentData } from "@firebase/firestore-types";
+import batchDelete from "../../../core/firebase/batchDelete";
 
 export const fetchMessages = createAsyncThunk("conversation/fetch", async (_, thunk) => {
   const state = thunk.getState() as RootState;
@@ -75,5 +76,15 @@ export const createNewMessage = createAsyncThunk(
         ...otherProps,
         date: new Date(Date.parse(date)),
       });
+  }
+);
+
+export const deleteConversation = createAsyncThunk(
+  "conversation/delete",
+  async (conversationId: string) => {
+    const conversationRef = firestore.collection(CONVERSATION_COLLECTION).doc(conversationId);
+
+    await batchDelete(conversationRef.collection(MESSAGES_COLLECTION).limit(15));
+    await conversationRef.delete();
   }
 );

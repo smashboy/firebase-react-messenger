@@ -1,7 +1,9 @@
 /** @jsxImportSource @emotion/react */
 import { jsx } from "@emotion/react";
+import { useRef } from "react";
 import { Fragment } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { VirtuosoHandle } from "react-virtuoso";
 import Footer from "../../core/components/Footer";
 import { NewMessage } from "../../core/firebase/models";
 import { RootState } from "../../core/store";
@@ -13,14 +15,22 @@ const Conversation = () => {
   const name = useSelector((state: RootState) => state.conversation.info?.name);
   const dispatch = useDispatch();
 
-  const handleSendMessage = (newMessage: NewMessage) => dispatch(createNewMessage(newMessage));
+  const listRef = useRef<VirtuosoHandle>(null);
+
+  const handleSendMessage = async (newMessage: NewMessage) => {
+    await dispatch(createNewMessage(newMessage));
+    listRef.current!.scrollToIndex({
+      behavior: "smooth",
+      index: 0,
+    });
+  };
 
   return (
     <div css={{ width: "100%", height: "100%", position: "relative" }}>
       {name && (
         <Fragment>
           <Header />
-          <MessagesList />
+          <MessagesList ref={listRef} />
           <Footer channelName={name} onMessageSend={handleSendMessage} />
         </Fragment>
       )}

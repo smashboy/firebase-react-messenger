@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { Conversation, Message } from "../../../core/firebase/models";
-import { fetchMessages } from "./fetchActions";
+import { deleteConversation, fetchMessages } from "./fetchActions";
 
 export type ConversationState = {
   info: null | Conversation;
@@ -36,6 +36,28 @@ const conversationSlice = createSlice({
       state.messages = [action.payload];
       state.cursor = state.messages[state.messages.length - 1]?.id || null;
     },
+    updateMessageReplies: (
+      state,
+      action: PayloadAction<{ messageId: string; username: string }>
+    ) => {
+      const messageId = action.payload.messageId;
+      const username = action.payload.username;
+
+      state.messages = state.messages!.map((message) => {
+        const { id, repliesFrom, repliesCounter, ...otherProps } = message;
+
+        if (id === messageId) {
+          return {
+            ...otherProps,
+            id,
+            repliesFrom: repliesFrom.includes(username) ? repliesFrom : [...repliesFrom, username],
+            repliesCounter: repliesCounter + 1,
+          };
+        }
+
+        return message;
+      });
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -60,6 +82,7 @@ const conversationSlice = createSlice({
   },
 });
 
-export const { setInfo, addNewMessage, resetConversation } = conversationSlice.actions;
+export const { setInfo, addNewMessage, resetConversation, updateMessageReplies } =
+  conversationSlice.actions;
 
 export const conversationReducer = conversationSlice.reducer;

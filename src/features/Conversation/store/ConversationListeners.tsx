@@ -21,15 +21,17 @@ const ConversationListeners: React.FC = ({ children }) => {
 
   useEffect(() => {
     if (id) dispatch(fetchMessages());
+
+    handleClearListener();
   }, [id]);
 
-  useEffect(() => {
+  const handleClearListener = () => {
     if (observer) {
       setListenersInitialized(false);
       observer?.();
       observer = null;
     }
-  }, [id]);
+  };
 
   useEffect(() => {
     if (isLoading || messages === null || listenersInitialized) return;

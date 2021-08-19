@@ -1,7 +1,9 @@
 /** @jsxImportSource @emotion/react */
 import { jsx } from "@emotion/react";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 import { NewMessage } from "../firebase/models";
+import { RootState } from "../store";
 import useSession from "../store/sessionStore/useSession";
 import Button from "./Button";
 import Divider from "./Divider";
@@ -15,6 +17,8 @@ export type FooterProps = {
 
 const Footer: React.FC<FooterProps> = ({ channelName, onMessageSend }) => {
   const [username, { login }] = useSession();
+
+  const messageId = useSelector((state: RootState) => state.thread.message?.id);
 
   const [messageContent, setMessageContent] = useState("");
 
@@ -32,7 +36,8 @@ const Footer: React.FC<FooterProps> = ({ channelName, onMessageSend }) => {
       date: new Date().toString(),
       message: messageContent,
       repliesFrom: [],
-      replyTo: null,
+      repliesCounter: 0,
+      replyTo: messageId && !channelName ? messageId : null,
     };
 
     onMessageSend?.(newMessage);
