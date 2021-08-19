@@ -48,10 +48,7 @@ const MessagesList = () => {
     []
   );
 
-  const handleFetchMoreMessages = () => {
-    console.log("MORE");
-    dispatch(fetchMessages());
-  };
+  const handleFetchMoreMessages = () => dispatch(fetchMessages());
 
   return (
     <div css={{ height: "calc(100% - 161px)", padding: "16px 16px 0 16px" }}>
