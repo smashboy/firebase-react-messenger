@@ -10,12 +10,14 @@ import { addNewReply } from "./threadSlice";
 let observer: null | (() => void) = null;
 
 const ThreadListeners: React.FC = ({ children }) => {
-  const { isLoading, replies, messageId, conversationId } = useSelector((state: RootState) => ({
-    isLoading: state.thread.isLoading,
-    replies: state.thread.replies,
-    messageId: state.thread.message?.id,
-    conversationId: state.conversation.info!.id,
-  }));
+  const { isLoading, replies, threadMessageId, conversationId } = useSelector(
+    (state: RootState) => ({
+      isLoading: state.thread.isLoading,
+      replies: state.thread.replies,
+      threadMessageId: state.thread.message?.id,
+      conversationId: state.conversation.info!.id,
+    })
+  );
 
   const dispatch = useDispatch();
 
@@ -28,10 +30,10 @@ const ThreadListeners: React.FC = ({ children }) => {
   }, []);
 
   useEffect(() => {
-    if (messageId) dispatch(fetchReplies());
+    if (threadMessageId) dispatch(fetchReplies());
 
     handleClearListener();
-  }, [messageId]);
+  }, [threadMessageId]);
 
   const handleClearListener = () => {
     if (observer) {
@@ -41,42 +43,45 @@ const ThreadListeners: React.FC = ({ children }) => {
     }
   };
 
-  // useEffect(() => {
-  //   if (isLoading || replies === null || listenersInitialized) return;
+  useEffect(() => {
+    if (isLoading || replies === null || listenersInitialized) return;
 
-  //   setListenersInitialized(true);
+    setListenersInitialized(true);
 
-  //   observer = firestore
-  //     .collection(CONVERSATION_COLLECTION)
-  //     .doc(conversationId)
-  //     .collection(MESSAGES_COLLECTION)
-  //     .onSnapshot((querySnapshot) => {
-  //       querySnapshot.docChanges().forEach((change) => {
-  //         if (change.type === "added") {
-  //           const newMessageId = change.doc.id;
-  //           const newMessageData = change.doc.data() as NewMessage;
-  //           const newMessageDate = new Date(change.doc.data().date.toDate());
+    observer = firestore
+      .collection(CONVERSATION_COLLECTION)
+      .doc(conversationId)
+      .collection(MESSAGES_COLLECTION)
+      .onSnapshot((querySnapshot) => {
+        querySnapshot.docChanges().forEach((change) => {
+          if (change.type === "added") {
+            const newMessageId = change.doc.id;
+            const newMessageData = change.doc.data() as NewMessage;
+            const newMessageDate = new Date(change.doc.data().date.toDate());
 
-  //           const lastMessageDate = new Date(Date.parse(replies[0]?.date || ""));
+            const lastMessageDate = new Date(Date.parse(replies[0]?.date || ""));
 
-  //           if (!newMessageData.replyTo || newMessageDate.getTime() < lastMessageDate.getTime())
-  //             return;
+            if (
+              newMessageData.replyTo !== threadMessageId ||
+              newMessageDate.getTime() < lastMessageDate.getTime()
+            )
+              return;
 
-  //           const messagesIds = replies.map(({ id }) => id);
+            const messagesIds = replies.map(({ id }) => id);
 
-  //           const newMessage: Message = {
-  //             ...(newMessageData as NewMessage),
-  //             date: newMessageDate.toString(),
-  //             id: newMessageId,
-  //           };
+            const newMessage: Message = {
+              ...(newMessageData as NewMessage),
+              date: newMessageDate.toString(),
+              id: newMessageId,
+            };
 
-  //           if (messagesIds.includes(newMessage.id)) return;
+            if (messagesIds.includes(newMessage.id)) return;
 
-  //           dispatch(addNewReply(newMessage));
-  //         }
-  //       });
-  //     });
-  // }, [isLoading, replies, listenersInitialized, conversationId]);
+            dispatch(addNewReply(newMessage));
+          }
+        });
+      });
+  }, [isLoading, replies, listenersInitialized, conversationId, threadMessageId]);
 
   return <Fragment>{children}</Fragment>;
 };
