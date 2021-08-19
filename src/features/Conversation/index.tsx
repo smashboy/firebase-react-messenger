@@ -10,18 +10,18 @@ import MessagesList from "./components/MessagesList";
 import { createNewMessage } from "./store/fetchActions";
 
 const Conversation = () => {
-  const info = useSelector((state: RootState) => state.conversation.info);
+  const name = useSelector((state: RootState) => state.conversation.info?.name);
   const dispatch = useDispatch();
 
   const handleSendMessage = (newMessage: NewMessage) => dispatch(createNewMessage(newMessage));
 
   return (
     <div css={{ width: "100%", height: "100%", position: "relative" }}>
-      {info && (
+      {name && (
         <Fragment>
           <Header />
           <MessagesList />
-          <Footer channelName="general" onMessageSend={handleSendMessage} />
+          <Footer channelName={name} onMessageSend={handleSendMessage} />
         </Fragment>
       )}
     </div>
