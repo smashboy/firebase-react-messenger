@@ -8,6 +8,7 @@ import MessageItem from "../../../core/components/MessageItem";
 import VirtualItemWrapper from "../../../core/components/VirtualItemWrapper";
 import { RootState } from "../../../core/store";
 import ConversationListeners from "../store/ConversationListeners";
+import { MESSAGES_PAGINATION_LIMIT } from "../store/conversationSlice";
 import { fetchMessages } from "../store/fetchActions";
 
 const MessagesList = forwardRef<VirtuosoHandle>((_, ref) => {
@@ -26,7 +27,13 @@ const MessagesList = forwardRef<VirtuosoHandle>((_, ref) => {
     []
   );
 
-  const handleFetchMoreMessages = () => dispatch(fetchMessages());
+  const handleFetchMoreMessages = () => {
+    // Prevent refetch, when endReached falsy triggers
+    const messagesLength = messages?.length || 0;
+    if (messagesLength < MESSAGES_PAGINATION_LIMIT) return;
+
+    dispatch(fetchMessages());
+  };
 
   return (
     <div css={{ height: "calc(100% - 161px)", padding: "16px 16px 0 16px" }}>

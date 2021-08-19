@@ -21,9 +21,9 @@ const Thread = () => {
 
   const listRef = useRef<VirtuosoHandle>(null);
 
-  const { threadMessageId, lastMessageIndex } = useSelector((state: RootState) => ({
+  const { threadMessageId } = useSelector((state: RootState) => ({
     threadMessageId: state.thread.message?.id,
-    lastMessageIndex: (state.thread.replies?.length || 1) - 1,
+    // lastMessageIndex: (state.thread.replies?.length || 1) - 1,
   }));
   const dispatch = useDispatch();
 
@@ -31,10 +31,11 @@ const Thread = () => {
     dispatch(updateMessageReplies({ messageId: threadMessageId!, username: username! }));
     dispatch(createNewReply(newMessage));
 
-    listRef.current!.scrollToIndex({
-      behavior: "smooth",
-      index: lastMessageIndex,
-    });
+    // Need to figure out how to prevent unintended requests
+    // listRef.current!.scrollToIndex({
+    //   behavior: "smooth",
+    //   index: lastMessageIndex,
+    // });
   };
 
   return (

@@ -9,6 +9,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../../../core/store";
 import ThreadListeners from "../store/ThreadListeners";
 import { fetchReplies } from "../store/fetchActions";
+import { REPLIES_PAGINATION_LIMIT } from "../store/threadSlice";
 
 const MessagesList = forwardRef<VirtuosoHandle>((_, ref) => {
   const replies = useSelector((state: RootState) => state.thread.replies);
@@ -26,7 +27,13 @@ const MessagesList = forwardRef<VirtuosoHandle>((_, ref) => {
     []
   );
 
-  const handleFetchMoreMessages = () => dispatch(fetchReplies());
+  const handleFetchMoreMessages = () => {
+    // Prevent refetch, when endReached falsy triggers
+    const messagesLength = replies?.length || 0;
+    if (messagesLength < REPLIES_PAGINATION_LIMIT) return;
+
+    dispatch(fetchReplies());
+  };
 
   return (
     <div css={{ height: "calc(100% - 95px)", padding: "16px 16px 0 16px" }}>
