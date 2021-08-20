@@ -4,7 +4,7 @@ import { CONVERSATION_COLLECTION, MESSAGES_COLLECTION } from "../../../core/fire
 import { firestore } from "../../../core/firebase/initializeFirebase";
 import { Message, NewMessage } from "../../../core/firebase/models";
 import { RootState } from "../../../core/store";
-import { addNewMessage } from "./conversationSlice";
+import { addNewMessage, updateMessageReplies } from "./conversationSlice";
 import { fetchMessages } from "./fetchActions";
 
 let observer: null | (() => void) = null;
@@ -44,17 +44,28 @@ const ConversationListeners: React.FC = ({ children }) => {
       .collection(MESSAGES_COLLECTION)
       .onSnapshot((querySnapshot) => {
         querySnapshot.docChanges().forEach((change) => {
-          if (change.type === "added") {
+          if (change.type === "modified") {
             const newMessageId = change.doc.id;
             const newMessageData = change.doc.data() as NewMessage;
             const newMessageDate = new Date(change.doc.data().date.toDate());
 
-            const lastMessageDate = new Date(Date.parse(messages[0]?.date || ""));
+            // const lastMessageDate = new Date(Date.parse(messages[0]?.date || ""));
 
-            if (newMessageData.replyTo || newMessageDate.getTime() < lastMessageDate.getTime())
-              return;
+            console.log(newMessageData);
 
-            const messagesIds = messages.map(({ id }) => id);
+            if (newMessageData.replyTo)
+              return dispatch(
+                updateMessageReplies({
+                  messageId: newMessageData.replyTo!,
+                  username: newMessageData.username,
+                })
+              );
+            if (newMessageData.repliesFrom.length > 0) return;
+
+            // if (newMessageData.replyTo || newMessageDate.getTime() < lastMessageDate.getTime())
+            //   return;
+
+            // const messagesIds = messages.map(({ id }) => id);
 
             const newMessage: Message = {
               ...(newMessageData as NewMessage),
@@ -62,7 +73,7 @@ const ConversationListeners: React.FC = ({ children }) => {
               id: newMessageId,
             };
 
-            if (messagesIds.includes(newMessage.id)) return;
+            // if (messagesIds.includes(newMessage.id)) return;
 
             dispatch(addNewMessage(newMessage));
           }

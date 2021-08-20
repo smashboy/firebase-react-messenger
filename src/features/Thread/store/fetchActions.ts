@@ -69,7 +69,7 @@ export const createNewReply = createAsyncThunk(
 
     const { info } = state.conversation;
 
-    await firestore
+    const newReplyRef = await firestore
       .collection(CONVERSATION_COLLECTION)
       .doc(info!.id)
       .collection(MESSAGES_COLLECTION)
@@ -77,9 +77,18 @@ export const createNewReply = createAsyncThunk(
         ...otherProps,
         replyTo,
         username,
+      });
+
+    await firestore
+      .collection(CONVERSATION_COLLECTION)
+      .doc(info!.id)
+      .collection(MESSAGES_COLLECTION)
+      .doc(newReplyRef.id)
+      .update({
         date: new Date(Date.parse(date)),
       });
 
+    // Update main thread message data
     const messageSnapshot = await firestore
       .collection(CONVERSATION_COLLECTION)
       .doc(info!.id)

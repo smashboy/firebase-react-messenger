@@ -54,20 +54,22 @@ const ThreadListeners: React.FC = ({ children }) => {
       .collection(MESSAGES_COLLECTION)
       .onSnapshot((querySnapshot) => {
         querySnapshot.docChanges().forEach((change) => {
-          if (change.type === "added") {
+          if (change.type === "modified") {
             const newMessageId = change.doc.id;
             const newMessageData = change.doc.data() as NewMessage;
             const newMessageDate = new Date(change.doc.data().date.toDate());
 
-            const lastMessageDate = new Date(Date.parse(replies[0]?.date || ""));
+            // const lastMessageDate = new Date(Date.parse(replies[0]?.date || ""));
 
-            if (
-              newMessageData.replyTo !== threadMessageId ||
-              newMessageDate.getTime() < lastMessageDate.getTime()
-            )
-              return;
+            if (newMessageData.replyTo !== threadMessageId) return;
 
-            const messagesIds = replies.map(({ id }) => id);
+            // if (
+            //   newMessageData.replyTo !== threadMessageId ||
+            //   newMessageDate.getTime() > lastMessageDate.getTime()
+            // )
+            //   return;
+
+            // const messagesIds = replies.map(({ id }) => id);
 
             const newMessage: Message = {
               ...(newMessageData as NewMessage),
@@ -75,7 +77,7 @@ const ThreadListeners: React.FC = ({ children }) => {
               id: newMessageId,
             };
 
-            if (messagesIds.includes(newMessage.id)) return;
+            // if (messagesIds.includes(newMessage.id)) return;
 
             dispatch(addNewReply(newMessage));
           }

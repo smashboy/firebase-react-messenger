@@ -68,12 +68,20 @@ export const createNewMessage = createAsyncThunk(
 
     const { info } = state.conversation;
 
-    await firestore
+    const newMessageRef = await firestore
       .collection(CONVERSATION_COLLECTION)
       .doc(info!.id)
       .collection(MESSAGES_COLLECTION)
       .add({
         ...otherProps,
+      });
+
+    await firestore
+      .collection(CONVERSATION_COLLECTION)
+      .doc(info!.id)
+      .collection(MESSAGES_COLLECTION)
+      .doc(newMessageRef.id)
+      .update({
         date: new Date(Date.parse(date)),
       });
   }
