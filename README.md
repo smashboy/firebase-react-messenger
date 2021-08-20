@@ -5,6 +5,12 @@
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
+## Requirements
+
+### `Firebase credentials`
+
+You have to generate firebase service account key in your project settings and paste it to `src/core/firebase/firebaseCredentials.ts`.
+
 ## Available Scripts
 
 In the project directory, you can run:
@@ -36,6 +42,6 @@ The main place which contains components, hooks, etc that are used throughout ap
 
 ### `src/features`
 
-Contains folders that includes specific functionality (conversation, thread, conversation list).
+Contains folders that includes specific functionality (conversation, thread, conversations list).
  
 
