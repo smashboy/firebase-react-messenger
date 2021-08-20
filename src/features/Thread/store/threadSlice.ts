@@ -28,6 +28,8 @@ const threadSlice = createSlice({
     resetThread: () => initialState,
 
     addNewReply: (state, action: PayloadAction<Message>) => {
+      state.message!.repliesCounter++;
+
       if (state.replies) {
         state.replies.push(action.payload);
         state.cursor = state.replies[state.replies.length - 1]?.id || null;
@@ -57,9 +59,6 @@ const threadSlice = createSlice({
       })
       .addCase(fetchReplies.rejected, (state) => {
         state.isLoading = false;
-      })
-      .addCase(createNewReply.fulfilled, (state) => {
-        state.message!.repliesCounter++;
       });
   },
 });

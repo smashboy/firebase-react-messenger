@@ -6,8 +6,6 @@ import Divider from "../../core/components/Divider";
 import Footer from "../../core/components/Footer";
 import { NewMessage } from "../../core/firebase/models";
 import { RootState } from "../../core/store";
-import useSession from "../../core/store/sessionStore/useSession";
-import { updateMessageReplies } from "../Conversation/store/conversationSlice";
 import Header from "./components/Header";
 import MessagesList from "./components/MessagesList";
 import RepliesCounter from "./components/RepliesCounter";
@@ -15,8 +13,6 @@ import ThreadMessage from "./components/ThreadMessage";
 import { createNewReply } from "./store/fetchActions";
 
 const Thread = () => {
-  const [username] = useSession();
-
   const listRef = useRef<VirtuosoHandle>(null);
 
   const { threadMessageId } = useSelector((state: RootState) => ({
@@ -26,7 +22,6 @@ const Thread = () => {
   const dispatch = useDispatch();
 
   const handeSendReply = (newMessage: NewMessage) => {
-    dispatch(updateMessageReplies({ messageId: threadMessageId!, username: username! }));
     dispatch(createNewReply(newMessage));
 
     // Need to figure out how to prevent unintended requests
