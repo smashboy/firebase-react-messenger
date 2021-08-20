@@ -29,7 +29,7 @@ const ConversationHeader = () => {
           {name}
         </Typography>
       </div>
-      <Button onClick={handleDeleteConversation} variant="text">
+      <Button onClick={handleDeleteConversation} variant="text" css={{ marginRight: "-10px" }}>
         <TrashIcon />
       </Button>
     </Header>
