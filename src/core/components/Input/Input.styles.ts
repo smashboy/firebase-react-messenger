@@ -1,8 +1,9 @@
 import { css, Theme } from "@emotion/react";
 
 export const inputWidthStyle = (fullWidth: boolean) =>
+  fullWidth &&
   css`
-    ${fullWidth ? "width: 100%" : "width: auto"}
+    width: 100%;
   `;
 
 export const inputStaticStyles = (theme: Theme) =>
