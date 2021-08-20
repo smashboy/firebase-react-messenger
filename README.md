@@ -11,6 +11,14 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 You have to generate firebase service account key in your project settings and paste it to `src/core/firebase/firebaseCredentials.ts`.
 
+Also you will need to configure the following firestore indexes:
+
+![image](https://user-images.githubusercontent.com/30213662/130205923-34ede02b-7c6f-49ee-a3f3-3c5c57f687ff.png)
+
+![image](https://user-images.githubusercontent.com/30213662/130206011-a9e4b30f-c50f-4057-afab-c7897117858c.png)
+
+
+
 ## Available Scripts
 
 In the project directory, you can run:
