@@ -51,8 +51,6 @@ const ConversationListeners: React.FC = ({ children }) => {
 
             // const lastMessageDate = new Date(Date.parse(messages[0]?.date || ""));
 
-            console.log(newMessageData);
-
             if (newMessageData.replyTo)
               return dispatch(
                 updateMessageReplies({
